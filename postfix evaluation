@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define MAX_STACK_SIZE 100
+
+int stack[MAX_STACK_SIZE];
+int top = -1;
+
+void push(int item)
+{
+    if (top >= MAX_STACK_SIZE - 1) {
+        printf("Stack Overflow\n");
+        exit(1);
+    } else {
+        top++;
+        stack[top] = item;
+    }
+}
+
+int pop()
+{
+    if (top < 0) {
+        printf("Stack Underflow\n");
+        exit(1);
+    } else {
+        int item = stack[top];
+        top--;
+        return item;
+    }
+}
+
+int main()
+{
+    char expr[MAX_STACK_SIZE];
+    char *ptr;
+    int op1, op2, result;
+
+    //printf("Enter the postfix expression: ");
+    fgets(expr, MAX_STACK_SIZE, stdin);
+
+    ptr = expr;
+    while (*ptr != '\0') {
+        if (isdigit(*ptr)) {
+            push(*ptr -'0');
+        } else if (*ptr == '+' || *ptr=='-'|| *ptr == '*' || *ptr == '/') {
+            op2 = pop();
+            op1 = pop();
+            switch (*ptr) {
+                case '+':
+                    result = op1 + op2;
+                    break;
+                case '-':
+                    result = op1 - op2;
+                    break;    
+                case '*':
+                    result = op1 * op2;
+                    break;
+                case '/':
+                    result = op1 / op2;
+                    break;
+            }
+            push(result);
+        }
+        ptr++;
+    }
+
+    printf(" %d\n", pop());
+
+    return 0;
+}
+
