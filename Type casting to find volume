@@ -1,0 +1,14 @@
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        double l,b,h;
+        double volume;
+        Scanner Sc = new Scanner(System.in);
+        l=Sc.nextDouble();
+        b=Sc.nextDouble();
+        h=Sc.nextDouble();
+        volume=l*b*h;
+        int v = (int)volume;
+        System.out.println("volume is:"+v);
+    }
+}
